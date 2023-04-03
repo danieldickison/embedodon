@@ -2,7 +2,10 @@
   "name": "embedodon",
   "version": "1.0.0-beta.0",
   "description": "A simple client-side script to render an Activity Stream (like from Mastodon)",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": ["dist"],
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,7 +26,6 @@
   },
   "homepage": "https://github.com/danieldickison/embedodon#readme",
   "devDependencies": {
-    "typescript": "^5.0.3",
-    "typescript-language-server": "^3.3.1"
+    "typescript": "^5.0.3"
   }
 }

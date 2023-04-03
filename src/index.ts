@@ -1,2 +1,2 @@
-export { Embedodon } from './Embedodon'
-export { EmbedodonElement } from './EmbedodonElement'
+export { Embedodon } from './Embedodon.js'
+export { EmbedodonElement } from './EmbedodonElement.js'

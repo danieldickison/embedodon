@@ -4,18 +4,33 @@
     <title>embedodon • example</title>
     
     <script type="module">
-      import { EmbedodonElement } from './index.js'
+      import { Embedodon, EmbedodonElement } from './dist/index.js'
       customElements.define('embedodon-example', EmbedodonElement)
+      
+      // And if you want to customize some styles:
       const styleSheet = new CSSStyleSheet()
       styleSheet.replaceSync(`
+        article {
+          font-family: Source Code Variable, monospace;
+        }
         p {
-          color: red;
+          color: tangerine;
         }
       `)
       for (const el of document.querySelectorAll('embedodon-example')) {
-        el.shadowRoot.adoptedStyleSheets = [styleSheet]
+        el.shadowRoot.adoptedStyleSheets = [Embedodon.standardStyle, styleSheet]
       }
     </script>
+    
+    <style>
+      body {
+        background: #fed;
+      }
+      embedodon-example {
+        display: block;
+        width: 50%;
+      }
+    </style>
   </head>
   <body>
     <embedodon-example username="@dand@mastodonmusic.social"></embedodon-example>

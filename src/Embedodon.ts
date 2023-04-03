@@ -1,6 +1,40 @@
+import { taggedCss as css } from "./TaggedCss.js"
+
 const USER_REGEX = /^@?([^\s@]+)@(\S+\.\S+)$/
 
 export class Embedodon {
+  static standardStyle = css`
+    * {
+      box-sizing: border-box;
+    }
+    
+    article {
+      border: solid 1px rgba(0, 0, 0, 0.25);
+      padding: 1rem;
+      margin: 1rem;
+      font-family: sans-serif;
+      color: #333;
+      background: #fff;
+      overflow: hidden;
+    }
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .media img {
+      max-width: 100%;
+    }
+    .media a {
+      display: inline-block;
+    }
+    .media a:hover {
+      outline: solid 2px rgba(0, 128, 255, 0.25);
+    }
+  `
+
   readonly server: string
   readonly user: string
   readonly statuses: Status[] = []
@@ -68,25 +102,27 @@ export class Embedodon {
       ts.append(tsA)
 
       const content = document.createElement('div')
+      content.classList.add('content')
       content.innerHTML = status.content || '(no content)'
 
-      const imgs = status.media_attachments
-        .flatMap(attachment => {
-          if (attachment.type !== 'image' || !attachment.preview_url) {
-            return []
-          }
+      const media = document.createElement('div')
+      media.classList.add('media')
+      for (const attachment of status.media_attachments) {
+        if (attachment.type !== 'image' || !attachment.preview_url) {
+          continue
+        }
 
-          const img = new Image()
-          img.src = attachment.preview_url as string
-          img.alt = attachment.description || ''
+        const img = new Image()
+        img.src = attachment.preview_url as string
+        img.alt = attachment.description || ''
 
-          const a = document.createElement('a')
-          a.href = attachment.url || '#'
-          a.append(img)
+        const a = document.createElement('a')
+        a.href = attachment.url || '#'
+        a.append(img)
 
-          return a
-        })
-      article.append(ts, content, ...imgs)
+        media.append(a)
+      }
+      article.append(ts, content, media)
 
       return article
     })
