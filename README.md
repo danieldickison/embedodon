@@ -55,13 +55,13 @@ embed-odon {
 
 CSS [`::part` selectors](http://developer.mozilla.org/en-US/docs/Web/CSS/::part) can be used to target specific elements within the Embededon-rendered component from your page CSS. Exposed parts are:
 
-| part      | element    | definition                                |
-|-----------|------------|-------------------------------------------|
-| toot      | <article>  | container for each toot                   |
-| timestamp | <time>     | timestamp link of toot                    |
-| content   | <div>      | text contents, containing `<p>`, etc      |
-| media     | <div>      | media attachments, containing images, etc |
-| image     | <img>      | thumbnail image for media attachment      |
+| part      | element     | definition                                |
+|-----------|-------------|-------------------------------------------|
+| toot      | `<article>` | container for each toot                   |
+| timestamp | `<time>`    | timestamp link of toot                    |
+| content   | `<div>`     | text contents, containing `<p>`, etc      |
+| media     | `<div>`     | media attachments, containing images, etc |
+| image     | `<img>`     | thumbnail image for media attachment      |
 
 Example:
 ```css
