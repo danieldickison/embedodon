@@ -8,10 +8,12 @@ Live example here: https://danieldickison.github.io/embedodon/
 ```html
 <script type="module">
   import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
-  customElements.define('embedodon-example', EmbedodonElement)
+  customElements.define('embed-odon', EmbedodonElement)
 </script>
-<embedodon-example username="@dand@mastodonmusic.social"></embedodon-example>
+<embed-odon username="@dand@mastodonmusic.social"></embed-odon>
 ```
+
+Note that custom element names must contain a hyphen.
 
 ## customize styles ##
 
@@ -23,10 +25,10 @@ customElements.define('embedodon-example', EmbedodonElement)
 const styleSheet = new CSSStyleSheet()
 styleSheet.replaceSync(`
   article {
-    font-family: Source Code Variable, monospace;
+    font-family: Source Code Variable, ui-monospace, monospace;
   }
 `)
-for (const el of document.querySelectorAll('embedodon-example')) {
+for (const el of document.querySelectorAll('embed-odon')) {
   el.shadowRoot.adoptedStyleSheets = [Embedodon.standardStyle, styleSheet]
 }
 ```
