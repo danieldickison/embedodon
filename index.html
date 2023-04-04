@@ -5,35 +5,21 @@
     
     <script type="module">
       // import { Embedodon, EmbedodonElement } from './dist/index.js'
-      import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+      import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.1/dist/index.js'
       customElements.define('embedodon-example', EmbedodonElement)
       
-      // And if you want to customize some styles:
-      const styleSheet = new CSSStyleSheet()
-      styleSheet.replaceSync(`
-        :host {
-          --fg: #513;
-          --bg: #eee;
-          --link: #15c;
-        }
-        @media (prefers-color-scheme: dark) {
-          :host {
-            --fg: #d9b;
-            --bg: #222;
-            --link: #9ae;
-          }
-        }
-        article {
-          font-family: ui-monospace, monospace;
-          background: var(--bg);
-          color: var(--fg);
-        }
+      const custom = document.querySelector('embedodon-example.custom')
+      const customCSS = new CSSStyleSheet()
+      customCSS.replaceSync(`
         a {
-          color: var(--link);
+          display: inline-block;
+          transition: transform 200ms;
+        }
+        a:hover {
+          transform: scale(1.5);
+        }
       `)
-      for (const el of document.querySelectorAll('embedodon-example')) {
-        el.shadowRoot.adoptedStyleSheets = [Embedodon.standardStyle, styleSheet]
-      }
+      custom.shadowRoot.adoptedStyleSheets = custom.shadowRoot.adoptedStyleSheets.concat(customCSS)
     </script>
     
     <style>
@@ -45,13 +31,30 @@
         margin: 0 auto;
         padding: 1rem;
       }
-      embedodon-example {
-        display: block;
+      
+      .examples {
+        display: grid;
+        grid-template-columns: 30rem 30rem;
         width: 100%;
-        margin: 1rem auto;
       }
-      a {
-        text-decoration: none;
+      
+      embedodon-example.custom {
+        font-family: ui-monospace, monospace;
+        --fg: #603;
+        --bg: #eee;
+        --link: #b0b;
+        --border: 2px dashed var(--fg);
+      }
+      @media (prefers-color-scheme: dark) {
+        embedodon-example.custom {
+          --fg: #d9b;
+          --bg: #222;
+          --link: #b6e;
+        }
+      }
+      embedodon-example.custom::part(timestamp) {
+        font-style: italic;
+        text-align: right;
       }
     </style>
   </head>
@@ -66,7 +69,7 @@
     
     <h2>example</h2>
     <p>
-      A simple example for showing the author’s toots:
+      A simple example for showing the author’s toots, using a standard built-in color scheme:
     </p>
     
     <pre>
@@ -74,17 +77,19 @@
     import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
     customElements.define('embedodon-example', EmbedodonElement)
   &lt;/script>
-  &lt;embedodon-example username="@dand@mastodonmusic.social">&lt;/embedodon-example>
+  &lt;embedodon-example username="@dand@mastodonmusic.social" class="standard">&lt;/embedodon-example>
     </pre>
     
     <p>
-      You can also add custom CSS rules. See <a href="https://github.com/danieldickison/embedodon/blob/main/example.html">the index.html source</a> for how this is accomplished.
+      You can also customize the appearance using CSS with <a href="http://developer.mozilla.org/en-US/docs/Web/CSS/--*">custom properties</a>, <a href="http://developer.mozilla.org/en-US/docs/Web/CSS/::part">::part() selectors</a>, and <a href="http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/adoptedStyleSheets">adoptedStyleSheets</a>.
     </p>
     
     <p>
-      The resulting embed looks like this:
+      On the left is the default appearance; on the right is customized:
     </p>
-    
-    <embedodon-example username="@dand@mastodonmusic.social"></embedodon-example>
+    <div class="examples">
+      <embedodon-example username="@dand@mastodonmusic.social" class="standard"></embedodon-example>    
+      <embedodon-example username="@dand@mastodonmusic.social" class="custom"></embedodon-example>
+    </div>
   </body>
 </html>
