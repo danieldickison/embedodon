@@ -7,7 +7,7 @@ Live example here: https://danieldickison.github.io/embedodon/
 
 ```html
 <script type="module">
-  import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.1/dist/index.js'
+  import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
   customElements.define('embed-odon', EmbedodonElement)
 </script>
 <embed-odon username="@dand@mastodonmusic.social" class="standard"></embed-odon>
@@ -76,7 +76,7 @@ embed-odon::part(timestamp) {
 Because the [shadow root](http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) of `EmbedodonElement` is created with `mode: 'open'`, its [adoptedStyleSheets](http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/adoptedStyleSheets) property can be overridden. You can choose to include or omit the base stylesheet, which is exposed as `Embedodon.baseStyleSheet`:
 
 ```js
-import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.1/dist/index.js'
+import { Embedodon, EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
 customElements.define('embed-odon', EmbedodonElement)
 const styleSheet = new CSSStyleSheet()
 styleSheet.replaceSync(`

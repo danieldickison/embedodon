@@ -5,7 +5,7 @@
     
     <script type="module">
       // import { Embedodon, EmbedodonElement } from './dist/index.js'
-      import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.1/dist/index.js'
+      import { Embedodon, EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
       customElements.define('embedodon-example', EmbedodonElement)
       
       const custom = document.querySelector('embedodon-example.custom')
@@ -23,13 +23,30 @@
     </script>
     
     <style>
+      :root {
+        --fg: #333;
+        --bg: #edc;
+        --link: #68c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fg: #ddd;
+          --bg: #641;
+          --link: #9ad;
+        }
+      }
+      
       body {
-        background: #fed;
-        color: #222;
+        background: var(--bg);
+        color: var(--fg);
         font-family: sans-serif;
-        max-width: 40rem;
+        max-width: 50rem;
         margin: 0 auto;
         padding: 1rem;
+      }
+      
+      a {
+        color: var(--link);
       }
       
       .examples {
@@ -74,7 +91,7 @@
     
     <pre>
   &lt;script type="module">
-    import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+    import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
     customElements.define('embedodon-example', EmbedodonElement)
   &lt;/script>
   &lt;embedodon-example username="@dand@mastodonmusic.social" class="standard">&lt;/embedodon-example>
