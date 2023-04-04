@@ -12,7 +12,7 @@ export class EmbedodonElement extends HTMLElement {
 
     this.embedodon = new Embedodon(username)
     this.root = this.attachShadow({ mode: 'open' })
-    this.root.adoptedStyleSheets = [Embedodon.standardStyle]
+    this.root.adoptedStyleSheets = [Embedodon.baseStyleSheet]
     this.progress = document.createElement('progress')
     this.root.append(this.progress)
     this.refresh()

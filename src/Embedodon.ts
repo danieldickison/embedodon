@@ -3,25 +3,44 @@ import { taggedCss as css } from "./TaggedCss.js"
 const USER_REGEX = /^@?([^\s@]+)@(\S+\.\S+)$/
 
 export class Embedodon {
-  static standardStyle = css`
+  static baseStyleSheet = css`
+    :host(.standard) {
+      --fg: #333;
+      --bg: #fff;
+      --link: #13b;
+      --border: solid 1px rgba(0,0,0,0.25);
+    }
+    @media (prefers-color-scheme: dark) {
+      :host(.standard) {
+        --fg: #ccc;
+        --bg: #222;
+        --link: #6ae;
+        --border: solid 1px rgba(255,255,255,0.25);
+      }
+    }
     * {
       box-sizing: border-box;
     }
     
     article {
-      border: solid 1px rgba(0, 0, 0, 0.25);
       padding: 1rem;
       margin: 1rem;
-      font-family: sans-serif;
-      color: #333;
-      background: #fff;
       overflow: hidden;
+      /* font-family: var(--font-family); */
+      color: var(--fg);
+      background: var(--bg);
+      border: var(--border);
     }
     a {
+      color: var(--link);
       text-decoration: none;
     }
     a:hover {
       text-decoration: underline;
+    }
+    
+    time {
+      display: block;
     }
     
     .media img {
@@ -31,7 +50,7 @@ export class Embedodon {
       display: inline-block;
     }
     .media a:hover {
-      outline: solid 2px rgba(0, 128, 255, 0.25);
+      outline: solid 2px var(--link);
     }
   `
 
@@ -93,8 +112,10 @@ export class Embedodon {
   render() {
     return this.statuses.map(status => {
       const article = document.createElement('article')
+      article.setAttribute('part', 'toot')
 
       const ts = document.createElement('time')
+      ts.setAttribute('part', 'timestamp')
       ts.dateTime = status.created_at
       const tsA = document.createElement('a')
       tsA.href = status.url
@@ -102,10 +123,12 @@ export class Embedodon {
       ts.append(tsA)
 
       const content = document.createElement('div')
+      content.setAttribute('part', 'content')
       content.classList.add('content')
       content.innerHTML = status.content || '(no content)'
 
       const media = document.createElement('div')
+      media.setAttribute('part', 'media')
       media.classList.add('media')
       for (const attachment of status.media_attachments) {
         if (attachment.type !== 'image' || !attachment.preview_url) {
@@ -113,6 +136,7 @@ export class Embedodon {
         }
 
         const img = new Image()
+        img.setAttribute('part', 'image')
         img.src = attachment.preview_url as string
         img.alt = attachment.description || ''
 
