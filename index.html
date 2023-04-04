@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>embedodon • example</title>
+    <title>embedodon</title>
     
     <script type="module">
       // import from ./dist/index.js for local testing
@@ -39,10 +39,35 @@
     </style>
   </head>
   <body>
-    <h1>embedodon • example</h1>
+    <h1>embedodon</h1>
     <p>
-      A simple example of <a href="https://github.com/danieldickison/embedodon">embedodon</a> usage for rendering a Mastodon user toots with a few custom CSS rules.
+      embedodon is a simple client-side typescript library to render a Mastodon user’s public timeline.
     </p>
+    <ul>
+      <li>source: <a href="https://github.com/danieldickison/embedodon">github.com/danieldickison/embedodon</a></li>
+    </ul>
+    
+    <h2>example</h2>
+    <p>
+      A simple example for showing the author’s toots:
+    </p>
+    
+    <pre>
+  &lt;script type="module">
+    import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+    customElements.define('embedodon-example', EmbedodonElement)
+  &lt;/script>
+  &lt;embedodon-example username="@dand@mastodonmusic.social">&lt;/embedodon-example>
+    </pre>
+    
+    <p>
+      You can also add custom CSS rules. See <a href="https://github.com/danieldickison/embedodon/blob/main/example.html">the index.html source</a> for how this is accomplished.
+    </p>
+    
+    <p>
+      The resulting embed looks like this:
+    </p>
+    
     <embedodon-example username="@dand@mastodonmusic.social"></embedodon-example>
   </body>
 </html>
