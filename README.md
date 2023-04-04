@@ -1,10 +1,32 @@
 # embedodon
-simple js to render an activity stream (e.g. from mastodon)
+Simple js to render a Mastodon user’s public toots.
 
-## example ##
+Live example here: https://danieldickison.github.io/embedodon/
 
-```bash
-$ npm i
-$ npm run build
-$ open example.html
+## simple example ##
+
+```html
+<script type="module">
+  import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+  customElements.define('embedodon-example', EmbedodonElement)
+</script>
+<embedodon-example username="@dand@mastodonmusic.social"></embedodon-example>
+```
+
+## customize styles ##
+
+Styles can be customized by setting the [adoptedStyleSheets](http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/adoptedStyleSheets) property of the `EmbedodonElement#shadowRoot`. The standard stylesheet can optionally be accessed with `Embedodon.standardStyle` to include in the `adoptedStyleSheets`:
+
+```js
+import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+customElements.define('embedodon-example', EmbedodonElement)
+const styleSheet = new CSSStyleSheet()
+styleSheet.replaceSync(`
+  article {
+    font-family: Source Code Variable, monospace;
+  }
+`)
+for (const el of document.querySelectorAll('embedodon-example')) {
+  el.shadowRoot.adoptedStyleSheets = [Embedodon.standardStyle, styleSheet]
+}
 ```

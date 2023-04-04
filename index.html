@@ -15,7 +15,7 @@
           font-family: Source Code Variable, monospace;
         }
         p {
-          color: tangerine;
+          color: #612;
         }
       `)
       for (const el of document.querySelectorAll('embedodon-example')) {
@@ -26,6 +26,7 @@
     <style>
       body {
         background: #fed;
+        color: #222;
         font-family: sans-serif;
         max-width: 40rem;
         margin: 0 auto;
@@ -54,7 +55,7 @@
     
     <pre>
   &lt;script type="module">
-    import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+    import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
     customElements.define('embedodon-example', EmbedodonElement)
   &lt;/script>
   &lt;embedodon-example username="@dand@mastodonmusic.social">&lt;/embedodon-example>
