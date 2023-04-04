@@ -4,7 +4,8 @@
     <title>embedodon • example</title>
     
     <script type="module">
-      import { Embedodon, EmbedodonElement } from './dist/index.js'
+      // import from ./dist/index.js for local testing
+      import { Embedodon, EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
       customElements.define('embedodon-example', EmbedodonElement)
       
       // And if you want to customize some styles:
@@ -25,14 +26,23 @@
     <style>
       body {
         background: #fed;
+        font-family: sans-serif;
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 1rem;
       }
       embedodon-example {
         display: block;
-        width: 50%;
+        width: 100%;
+        margin: 1rem auto;
       }
     </style>
   </head>
   <body>
+    <h1>embedodon • example</h1>
+    <p>
+      A simple example of <a href="https://github.com/danieldickison/embedodon">embedodon</a> usage for rendering a Mastodon user toots with a few custom CSS rules.
+    </p>
     <embedodon-example username="@dand@mastodonmusic.social"></embedodon-example>
   </body>
 </html>
