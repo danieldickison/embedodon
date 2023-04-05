@@ -17,11 +17,11 @@ Note that custom element names must contain a hyphen. The "standard" class enabl
 
 ## customize styles ##
 
-Styles can be customized in several ways. These techniques, ordered from simplest to complex/flexible:
-1. By specifying a set of custom CSS properties
-2. By using the `::part` selector
-3. By setting `EmbedodonElement#shadowRoot.adoptedStyleSheets`
-4. By calling `Embedodon#render` directly, without using the `EmbedodonElement` web component
+Styles can be customized in several ways. Ordered from simplest to most complex but flexible, you can:
+1. Specify a set of [custom CSS properties](#custom-css-properties)
+2. Apply styles using [`::part` selectors](#part-selectors)
+3. [Override `adoptedStyleSheets`](#override-adoptedstylesheets) to style arbitrary shadowRoot elements
+4. [Call `Embedodon#render` directly](#call-embedodonrender-directly) without using the `EmbedodonElement` web component
 
 ### custom CSS properties ###
 
@@ -71,7 +71,7 @@ embed-odon::part(timestamp) {
 }
 ```
 
-### overriding `adoptedStyleSheets` ###
+### override `adoptedStyleSheets` ###
 
 Because the [shadow root](http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) of `EmbedodonElement` is created with `mode: 'open'`, its [adoptedStyleSheets](http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/adoptedStyleSheets) property can be overridden. You can choose to include or omit the base stylesheet, which is exposed as `Embedodon.baseStyleSheet`:
 
@@ -89,7 +89,7 @@ for (const el of document.querySelectorAll('embed-odon')) {
 }
 ```
 
-### calling `Embedodon#render` directly ###
+### call `Embedodon#render` directly ###
 
 If you would like full control of styling the DOM elements rendered by `Embedodon`, you can forego `EmbedodonElement` and inject the results of calling the `render` method directly into your DOM:
 
