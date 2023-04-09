@@ -44,7 +44,8 @@ export class Embedodon {
       display: block;
     }
     
-    .media img {
+    .media img,
+    .media video {
       max-width: 100%;
     }
     .media a {
@@ -150,6 +151,13 @@ export class Embedodon {
           <img part="image" src="${attachment.preview_url}" alt="${attachment.description}">
         </a>
       `
+    } else if (attachment.type === 'gifv' && attachment.preview_url && attachment.url) {
+      return html`
+        <video autoplay loop playsinline
+          poster="${attachment.preview_url}"
+          src="${attachment.url}"
+        >
+      `
     } else {
       return ''
     }
@@ -172,7 +180,7 @@ export interface Card {
 }
 
 export interface MediaAttachment {
-  type: 'image' // | 'video' | ...
+  type: 'image' | 'gifv' // | 'video' | ...
   id: string
   description?: string
   url?: string
