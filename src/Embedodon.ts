@@ -1,4 +1,4 @@
-import { taggedCss as css } from "./TaggedCss.js"
+import { css, html, rawHtml } from "./TemplateTags.js"
 
 const USER_REGEX = /^@?([^\s@]+)@(\S+\.\S+)$/
 
@@ -24,13 +24,14 @@ export class Embedodon {
     
     article {
       padding: 1rem;
-      margin: 1rem;
+      margin: 1rem 0;
       overflow: hidden;
       /* font-family: var(--font-family); */
       color: var(--fg);
       background: var(--bg);
       border: var(--border);
     }
+    
     a {
       color: var(--link);
       text-decoration: none;
@@ -51,6 +52,11 @@ export class Embedodon {
     }
     .media a:hover {
       outline: solid 2px var(--link);
+    }
+    
+    footer {
+      text-align: end;
+      font-size: smaller;
     }
   `
 
@@ -108,48 +114,45 @@ export class Embedodon {
     console.log(this.statuses)
   }
 
-  /** returns an array of <article> element with the toots */
+  /** returns an array of <article> elements with the toots followed by a <footer> element */
   render() {
+    const footer = document.createElement('footer')
+    footer.innerHTML = html`
+      rendered with <a href="https://github.com/danieldickison/embedodon" target="_blank">embedodon</a>
+    `
+
     return this.statuses.map(status => {
+      let innerHtml = html`
+        <time part="timestamp">
+          <a href="${status.url}">${this.dateTimeFormat.format(new Date(status.created_at))}</a>
+        </time>
+        <div part="content" class="content">
+          ${rawHtml(status.content || '(no content)')}
+        </div>
+        <div part="media" class="media">
+          ${rawHtml(status.media_attachments.map(m => this.#renderMediaHtml(m)).join())}
+        </div>
+      `
+
+      console.debug(innerHtml)
+
       const article = document.createElement('article')
       article.setAttribute('part', 'toot')
-
-      const ts = document.createElement('time')
-      ts.setAttribute('part', 'timestamp')
-      ts.dateTime = status.created_at
-      const tsA = document.createElement('a')
-      tsA.href = status.url
-      tsA.innerText = this.dateTimeFormat.format(new Date(status.created_at))
-      ts.append(tsA)
-
-      const content = document.createElement('div')
-      content.setAttribute('part', 'content')
-      content.classList.add('content')
-      content.innerHTML = status.content || '(no content)'
-
-      const media = document.createElement('div')
-      media.setAttribute('part', 'media')
-      media.classList.add('media')
-      for (const attachment of status.media_attachments) {
-        if (attachment.type !== 'image' || !attachment.preview_url) {
-          continue
-        }
-
-        const img = new Image()
-        img.setAttribute('part', 'image')
-        img.src = attachment.preview_url as string
-        img.alt = attachment.description || ''
-
-        const a = document.createElement('a')
-        a.href = attachment.url || '#'
-        a.append(img)
-
-        media.append(a)
-      }
-      article.append(ts, content, media)
-
+      article.innerHTML = innerHtml
       return article
-    })
+    }).concat([footer])
+  }
+
+  #renderMediaHtml(attachment: MediaAttachment) {
+    if (attachment.type === 'image' && attachment.preview_url) {
+      return html`
+        <a href="${attachment.url}">
+          <img part="image" src="${attachment.preview_url}" alt="${attachment.description}">
+        </a>
+      `
+    } else {
+      return ''
+    }
   }
 }
 
