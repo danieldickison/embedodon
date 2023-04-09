@@ -1,6 +1,6 @@
 {
   "name": "embedodon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple client-side script to render an Activity Stream (like from Mastodon)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
