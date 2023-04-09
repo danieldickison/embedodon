@@ -1,9 +1,9 @@
 import { Embedodon } from "./Embedodon.js"
+import { html } from "./TemplateTags.js"
 
 export class EmbedodonElement extends HTMLElement {
   readonly embedodon: Embedodon
   private root: ShadowRoot
-  private progress: HTMLProgressElement
 
   constructor() {
     super()
@@ -13,22 +13,20 @@ export class EmbedodonElement extends HTMLElement {
     this.embedodon = new Embedodon(username)
     this.root = this.attachShadow({ mode: 'open' })
     this.root.adoptedStyleSheets = [Embedodon.baseStyleSheet]
-    this.progress = document.createElement('progress')
-    this.root.append(this.progress)
     this.refresh()
   }
 
   async refresh() {
-    this.progress.style.display = 'block'
+    this.root.innerHTML = html`
+      <progress part="progress">loading toots…</progress>
+    `
     try {
       await this.embedodon.refresh()
-      this.root.append(...this.embedodon.render())
-
+      this.root.replaceChildren(...this.embedodon.render())
     } catch (e: any) {
-      alert(e.toString())
-
-    } finally {
-      this.progress.style.display = 'none'
+      this.root.innerHTML = html`
+        <p class="error">Failed to load toots (${e})</p>
+      `
     }
   }
 }

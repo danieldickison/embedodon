@@ -59,6 +59,11 @@ export class Embedodon {
       text-align: end;
       font-size: smaller;
     }
+    
+    progress {
+      display: block;
+      margin: 1rem auto;
+    }
   `
 
   readonly server: string
@@ -92,6 +97,10 @@ export class Embedodon {
   }
 
   async #fetchPublicEndpoint(url: URL) {
+    if (this.options.debugPause) {
+      await pause(this.options.debugPause)
+    }
+
     const res = await fetch(url, {
       headers: {
         'Accept': 'application/activity+json'
@@ -199,5 +208,10 @@ export interface MetaMediaSize {
 }
 
 export interface Options {
-  statusesPerPage: number
+  statusesPerPage: number,
+  debugPause?: number
+}
+
+function pause(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }

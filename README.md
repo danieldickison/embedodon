@@ -62,6 +62,7 @@ CSS [`::part` selectors](http://developer.mozilla.org/en-US/docs/Web/CSS/::part)
 | content   | `<div>`     | text contents, containing `<p>`, etc      |
 | media     | `<div>`     | media attachments, containing images, etc |
 | image     | `<img>`     | thumbnail image for media attachment      |
+| progress  | `<progress>`| progress bar while toots load             |
 
 Example:
 ```css
