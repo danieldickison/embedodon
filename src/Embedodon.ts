@@ -27,7 +27,6 @@ export class Embedodon {
       padding: 1rem;
       margin: 1rem 0;
       overflow: hidden;
-      /* font-family: var(--font-family); */
       color: var(--fg);
       background: var(--bg);
       border: var(--border);
@@ -162,6 +161,7 @@ export class Embedodon {
     } else if (attachment.type === 'gifv' && attachment.preview_url && attachment.url) {
       return html`
         <video autoplay loop playsinline
+          part="video"
           poster="${attachment.preview_url}"
           src="${attachment.url}"
         >
