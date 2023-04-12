@@ -23,18 +23,36 @@
     </script>
     
     <style>
+      :root {
+        --fg: #333;
+        --bg: #edc;
+        --link: #68c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fg: #ddd;
+          --bg: #641;
+          --link: #9ad;
+        }
+      }
+      
       body {
-        background: #fed;
-        color: #222;
+        background: var(--bg);
+        color: var(--fg);
         font-family: sans-serif;
-        max-width: 40rem;
+        max-width: 50rem;
         margin: 0 auto;
         padding: 1rem;
+      }
+      
+      a {
+        color: var(--link);
       }
       
       .examples {
         display: grid;
         grid-template-columns: 30rem 30rem;
+        gap: 1rem;
         width: 100%;
       }
       
@@ -74,22 +92,23 @@
     
     <pre>
   &lt;script type="module">
-    import { EmbedodonElement } from 'https://unpkg.com/embedodon@1.0.0-beta.0/dist/index.js'
+    import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
     customElements.define('embedodon-example', EmbedodonElement)
   &lt;/script>
   &lt;embedodon-example username="@dand@mastodonmusic.social" class="standard">&lt;/embedodon-example>
     </pre>
     
     <p>
-      You can also customize the appearance using CSS with <a href="http://developer.mozilla.org/en-US/docs/Web/CSS/--*">custom properties</a>, <a href="http://developer.mozilla.org/en-US/docs/Web/CSS/::part">::part() selectors</a>, and <a href="http://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/adoptedStyleSheets">adoptedStyleSheets</a>.
+      You can also <a href="https://github.com/danieldickison/embedodon/tree/main#customize-styles">customize the appearance</a> using CSS.
     </p>
     
     <p>
-      On the left is the default appearance; on the right is customized:
+      On the left is the default appearance; on the right is customized with some extra network delay added for debugging:
     </p>
     <div class="examples">
       <embedodon-example username="@dand@mastodonmusic.social" class="standard"></embedodon-example>    
-      <embedodon-example username="@dand@mastodonmusic.social" class="custom"></embedodon-example>
+      <embedodon-example username="@dand@mastodonmusic.social" class="custom"
+        debug-logging debug-pause="2000"></embedodon-example>
     </div>
   </body>
 </html>
