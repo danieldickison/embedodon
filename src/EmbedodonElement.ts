@@ -1,4 +1,4 @@
-import { Embedodon } from "./Embedodon.js"
+import { Embedodon, Options } from "./Embedodon.js"
 import { html } from "./TemplateTags.js"
 
 export class EmbedodonElement extends HTMLElement {
@@ -10,7 +10,16 @@ export class EmbedodonElement extends HTMLElement {
     const username = this.getAttribute('username')
     if (!username) throw new Error("username attribute must be specified on <Embedodon>")
 
-    this.embedodon = new Embedodon(username)
+    const options: Options = {}
+    if (this.hasAttribute('toots-per-page')) {
+      options.tootsPerPage = parseInt(this.getAttribute('toots-per-page') as string)
+    }
+    options.debugLogging = this.hasAttribute('debug-logging')
+    if (this.hasAttribute('debug-pause')) {
+      options.debugPause = parseInt(this.getAttribute('debug-pause') as string)
+    }
+
+    this.embedodon = new Embedodon(username, options)
     this.root = this.attachShadow({ mode: 'open' })
     this.root.adoptedStyleSheets = [Embedodon.baseStyleSheet]
     this.refresh()

@@ -1,6 +1,7 @@
 import { css, html, rawHtml } from "./TemplateTags.js"
 
 const USER_REGEX = /^@?([^\s@]+)@(\S+\.\S+)$/
+const DEFAULT_TOOTS_PER_PAGE = 10
 
 export class Embedodon {
   static baseStyleSheet = css`
@@ -76,9 +77,7 @@ export class Embedodon {
 
   constructor(
     username: string,
-    readonly options: Options = {
-      statusesPerPage: 10
-    }
+    readonly options: Options = {}
   ) {
     const [_, name, server] = USER_REGEX.exec(username) || []
     if (!name || !server) {
@@ -113,15 +112,19 @@ export class Embedodon {
 
   async refresh() {
     const userData = await this.#fetchPublicEndpoint(this.#serverUrl(`/api/v1/accounts/lookup?acct=${this.user}`))
-    console.log(userData)
+    if (this.options.debugLogging) {
+      console.debug(userData)
+    }
 
     const userId = encodeURIComponent(userData.id)
     this.statuses.splice(0, this.statuses.length,
       ...await this.#fetchPublicEndpoint(
-        this.#serverUrl(`/api/v1/accounts/${userId}/statuses?exclude_replies=true&exclude_reblogs=true&limit=${this.options.statusesPerPage}`)
+        this.#serverUrl(`/api/v1/accounts/${userId}/statuses?exclude_replies=true&exclude_reblogs=true&limit=${this.options.tootsPerPage || DEFAULT_TOOTS_PER_PAGE}`)
       )
     )
-    console.log(this.statuses)
+    if (this.options.debugLogging) {
+      console.debug(this.statuses)
+    }
   }
 
   /** returns an array of <article> elements with the toots followed by a <footer> element */
@@ -132,7 +135,9 @@ export class Embedodon {
     `
 
     return this.statuses.map(status => {
-      let innerHtml = html`
+      const article = document.createElement('article')
+      article.setAttribute('part', 'toot')
+      article.innerHTML = html`
         <time part="timestamp">
           <a href="${status.url}">${this.dateTimeFormat.format(new Date(status.created_at))}</a>
         </time>
@@ -143,12 +148,6 @@ export class Embedodon {
           ${rawHtml(status.media_attachments.map(m => this.#renderMediaHtml(m)).join())}
         </div>
       `
-
-      console.debug(innerHtml)
-
-      const article = document.createElement('article')
-      article.setAttribute('part', 'toot')
-      article.innerHTML = innerHtml
       return article
     }).concat([footer])
   }
@@ -208,8 +207,9 @@ export interface MetaMediaSize {
 }
 
 export interface Options {
-  statusesPerPage: number,
-  debugPause?: number
+  tootsPerPage?: number,
+  debugPause?: number,
+  debugLogging?: boolean
 }
 
 function pause(ms: number) {
