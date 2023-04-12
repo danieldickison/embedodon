@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { Embedodon } from '../dist/Embedodon.js'
+import { Embedodon } from '../src/Embedodon'
 
 describe('Embedodon', () => {
   test('constructor parses usernames correctly', () => {
