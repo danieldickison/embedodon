@@ -1,6 +1,17 @@
 export function css(strings: TemplateStringsArray, ...values: any[]) {
   const style = new CSSStyleSheet()
-  style.replaceSync(String.raw({ raw: strings }, ...values))
+  const css = String.raw({ raw: strings }, ...values)
+  if (style.replaceSync) {
+    style.replaceSync(css)
+  } else {
+    // crude lexical splitting of rules; will break with nested at-rules or random "}" that doesn't end a rule
+    const parts = css.split(/(\})\s*([^\s}])/)
+    for (let i = -1; i < parts.length; i += 3) {
+      const rule = `${parts[i] || ''}${parts[i + 1]}${parts[i + 2] || ''}`
+      // console.log(`insertRule ${rule}`)
+      style.insertRule(rule)
+    }
+  }
   return style
 }
 
