@@ -98,14 +98,14 @@ export class Embedodon {
     if (this.options.debugPause) {
       await pause(this.options.debugPause)
     }
-
-    const res = await fetch(url, {
+    const req = new Request(url, {
       headers: {
         'Accept': 'application/activity+json'
       },
       mode: 'cors',
       credentials: 'omit'
     })
+    const res = await fetch(req)
     return await res.json()
   }
 

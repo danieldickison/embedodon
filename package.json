@@ -9,8 +9,9 @@
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "tsc",
+    "prepublishOnly": "npm run test && npm run build",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
     "test": "jest"
   },
   "repository": {
@@ -32,6 +33,7 @@
     "@jest/globals": "^29.5.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
+    "jest-fetch-mock": "^3.0.3",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.3"
   }
