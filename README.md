@@ -1,7 +1,10 @@
 # embedodon
+
 Simple js to render a Mastodon user’s public toots.
 
 Live example here: https://danieldickison.github.io/embedodon/
+
+[![Run npm tests](https://github.com/danieldickison/embedodon/actions/workflows/npm-test.yml/badge.svg)](https://github.com/danieldickison/embedodon/actions/workflows/npm-test.yml)
 
 ## simple example ##
 
