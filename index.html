@@ -26,12 +26,14 @@
       :root {
         --fg: #333;
         --bg: #edc;
+        --code-bg: #eee;
         --link: #68c;
       }
       @media (prefers-color-scheme: dark) {
         :root {
           --fg: #ddd;
-          --bg: #641;
+          --bg: #531;
+          --code-bg: #333;
           --link: #9ad;
         }
       }
@@ -47,6 +49,15 @@
       
       a {
         color: var(--link);
+      }
+      
+      pre {
+        width: 100%;
+        margin: 1rem 0.5rem;
+        padding: 0.5rem;
+        overflow: scroll;
+        background: var(--code-bg);
+        border: solid 1px var(--fg);
       }
       
       .examples {
@@ -90,13 +101,15 @@
       A simple example for showing the author’s toots, using a standard built-in color scheme:
     </p>
     
-    <pre>
-  &lt;script type="module">
-    import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
-    customElements.define('embedodon-example', EmbedodonElement)
-  &lt;/script>
-  &lt;embedodon-example username="@dand@mastodonmusic.social" class="standard">&lt;/embedodon-example>
-    </pre>
+<pre>&lt;script type="module">
+  import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@^1.0.0/dist/index.js'
+  customElements.define('embedodon-example', EmbedodonElement)
+&lt;/script>
+
+&lt;embedodon-example
+  username="@dand@mastodonmusic.social"
+  class="standard"
+>&lt;/embedodon-example></pre>
     
     <p>
       You can also <a href="https://github.com/danieldickison/embedodon/tree/main#customize-styles">customize the appearance</a> using CSS.

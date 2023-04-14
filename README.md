@@ -10,7 +10,7 @@ Live example here: https://danieldickison.github.io/embedodon/
 
 ```html
 <script type="module">
-  import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@1/dist/index.js'
+  import { EmbedodonElement } from 'https://cdn.jsdelivr.net/npm/embedodon@^1.0.0/dist/index.js'
   customElements.define('embed-odon', EmbedodonElement)
 </script>
 <embed-odon username="@dand@mastodonmusic.social" class="standard"></embed-odon>
