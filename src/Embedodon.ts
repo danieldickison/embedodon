@@ -144,7 +144,7 @@ export class Embedodon {
           ${rawHtml(status.content || '(no content)')}
         </div>
         <div part="media" class="media">
-          ${rawHtml(status.media_attachments.map(m => this.#renderMediaHtml(m)).join())}
+          ${rawHtml(status.media_attachments.map(m => this.#renderMediaHtml(m)).join(''))}
         </div>
       `
       return article
