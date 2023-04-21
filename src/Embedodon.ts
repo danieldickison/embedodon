@@ -44,6 +44,13 @@ export class Embedodon {
       display: block;
     }
     
+    .media {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around;
+      align-items: center;
+      gap: 0.5rem;
+    }
     .media img,
     .media video {
       max-width: 100%;
