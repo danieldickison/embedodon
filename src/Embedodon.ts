@@ -47,19 +47,21 @@ export class Embedodon {
     .media {
       display: flex;
       flex-flow: row nowrap;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
       gap: 0.5rem;
     }
-    .media img,
-    .media video {
-      max-width: 100%;
+    .media > a {
+      flex: 1 1;
+      min-width: 0;
+      display: block;
+      position: relative;
     }
-    .media a {
-      display: inline-block;
-    }
-    .media a:hover {
+    .media > a:hover {
       outline: solid 2px var(--link);
+    }
+    .media > a > * {
+      width: 100%;
     }
     
     footer {
@@ -167,11 +169,13 @@ export class Embedodon {
       `
     } else if (attachment.type === 'gifv' && attachment.preview_url && attachment.url) {
       return html`
-        <video autoplay loop playsinline
-          part="video"
-          poster="${attachment.preview_url}"
-          src="${attachment.url}"
-        >
+        <a href="${attachment.url}">
+          <video autoplay loop playsinline
+            part="video"
+            poster="${attachment.preview_url}"
+            src="${attachment.url}"
+          ></video>
+        </a>
       `
     } else {
       return ''
