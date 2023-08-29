@@ -52,7 +52,7 @@ export class Embedodon {
       gap: 0.5rem;
     }
     .media > a {
-      flex: 1 1;
+      flex: 0 1 content;
       min-width: 0;
       display: block;
       position: relative;
