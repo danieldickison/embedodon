@@ -2,7 +2,7 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "target": "es2022",
-    "module": "ES2022",
+    "module": "NodeNext",
     "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "sourceMap": true,
