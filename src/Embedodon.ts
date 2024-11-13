@@ -57,11 +57,12 @@ export class Embedodon {
       display: block
       position: relative;
     }
-    .media > a:hover {
-      outline: solid 2px var(--link);
-    }
     .media > a > * {
       width: 100%;
+      outline: solid 2px transparent;
+    }
+    .media > a:hover > * {
+      outline: solid 2px var(--link);
     }
 
     footer {
