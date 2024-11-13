@@ -22,7 +22,7 @@ export class Embedodon {
     * {
       box-sizing: border-box;
     }
-    
+
     article {
       padding: 1rem;
       margin: 1rem 0;
@@ -31,7 +31,7 @@ export class Embedodon {
       background: var(--bg);
       border: var(--border);
     }
-    
+
     a {
       color: var(--link);
       text-decoration: none;
@@ -39,11 +39,11 @@ export class Embedodon {
     a:hover {
       text-decoration: underline;
     }
-    
+
     time {
       display: block;
     }
-    
+
     .media {
       display: flex;
       flex-flow: row nowrap;
@@ -54,7 +54,7 @@ export class Embedodon {
     .media > a {
       flex: 0 1 content;
       min-width: 0;
-      display: block;
+      display: block
       position: relative;
     }
     .media > a:hover {
@@ -63,12 +63,12 @@ export class Embedodon {
     .media > a > * {
       width: 100%;
     }
-    
+
     footer {
       text-align: end;
       font-size: smaller;
     }
-    
+
     progress {
       display: block;
       margin: 1rem auto;
